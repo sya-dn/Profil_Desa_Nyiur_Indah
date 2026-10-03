@@ -1,0 +1,30 @@
+-- Jalankan file ini pada database db_desa_nyiur_indah yang SUDAH ADA.
+-- File ini tidak menghapus tabel/data lama.
+USE db_desa_nyiur_indah;
+
+ALTER TABLE settings
+  ADD COLUMN jumlah_penduduk INT UNSIGNED NOT NULL DEFAULT 0 AFTER logo;
+
+CREATE TABLE IF NOT EXISTS demographic_data(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  jenis ENUM('pendidikan','pekerjaan') NOT NULL,
+  kategori VARCHAR(100) NOT NULL,
+  jumlah INT UNSIGNED NOT NULL DEFAULT 0,
+  urutan INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Kolom jumlah penduduk berdasarkan pekerjaan
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_pns` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_tni_polri` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_karyawan` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_wiraswasta` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_petani` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_nelayan` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_buruh` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_pedagang` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_ibu_rumah_tangga` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_pelajar` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_pensiunan` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_lainnya` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE settings ADD COLUMN IF NOT EXISTS `pekerjaan_tidak_bekerja` INT UNSIGNED NOT NULL DEFAULT 0;
